@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emotion Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <h1>Emotion Detector</h1>
+            <p class="subtitle">
+                Enter a sentence to analyse its emotional tone.
+            </p>
+
+            <form action="/emotionDetector" method="post">
+                <label for="text">Text to analyse</label>
+                <textarea
+                    id="text"
+                    name="text"
+                    rows="5"
+                    placeholder="Example: I am very happy today!"
+                >{{ text or "" }}</textarea>
+
+                <button type="submit">Analyze Emotion</button>
+            </form>
+
+            {% if error %}
+            <div class="error">
+                {{ error }}
+            </div>
+            {% endif %}
+
+            {% if dominant_emotion %}
+            <div class="result">
+                <h2>Emotion Results</h2>
+
+                <div class="dominant">
+                    Dominant emotion:
+                    <strong>{{ dominant_emotion }}</strong>
+                </div>
+
+                <div class="scores">
+                    <div><span>Anger</span><b>{{ anger }}</b></div>
+                    <div><span>Disgust</span><b>{{ disgust }}</b></div>
+                    <div><span>Fear</span><b>{{ fear }}</b></div>
+                    <div><span>Joy</span><b>{{ joy }}</b></div>
+                    <div><span>Sadness</span><b>{{ sadness }}</b></div>
+                </div>
+            </div>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
